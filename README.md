@@ -1,4 +1,4 @@
-# TimeLapseEditingProgram
+# Time Lapse Editing Program
 
 The Problem:
 When doing a timelapse of the sun setting, the photographer must change the exposure settings of the camera every so often to account for a decrease in the amount of light.
