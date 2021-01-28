@@ -35,7 +35,8 @@ void Application::Run()
 	{
 		std::cout << "1. Set static offset accross all images" << std::endl;
 		std::cout << "2. Adjust exposure offset for all images individually" << std::endl;
-		std::cout << "3. Quit Application" << std::endl;
+		std::cout << "3. Create Timelapse From Images" << std::endl;
+		std::cout << "4. Quit Application" << std::endl;
 		std::cout << "Choice: ";
 		std::cin >> choice;
 		switch (choice)
@@ -47,6 +48,9 @@ void Application::Run()
 				setCalculatedExposureOffset();
 			break;
 			case 3:
+				createTimeLapse();
+			break;
+			case 4:
 				std::cout << "Good Bye" << std::endl;
 			break;
 			default:
@@ -106,6 +110,42 @@ void Application::setCalculatedExposureOffset()
 		}
 	}
 	std::cout << "Successfully Edited " << m_imageCount << " Images" << std::endl;
+}
+void Application::createTimeLapse()
+{
+	std::string imagesFilePath, imageFormat, videoPath;
+	uint32_t width, height, frameRate;
+
+	std::cout << "Enter Path To Images: ";
+	std::cin >> imagesFilePath;
+	std::cout << std::endl;
+	std::cout << "Enter Image Format And Extension: ";
+	std::cin >> imageFormat;
+	std::cout << std::endl;
+	std::cout << "Enter Video Width: ";
+	std::cin >> width;
+	std::cout << "Enter Video Height: ";
+	std::cin >> height;
+	std::cout << std::endl;
+	std::cout << "Enter Video Frame Rate: ";
+	std::cin >> frameRate;
+	std::cout << std::endl;
+	std::cout << "Enter Video Output Path And Name: ";
+	std::cin >> videoPath;
+	std::string operation = "ffmpeg -r ";
+	operation += std::to_string(frameRate);
+	operation += " -f image2 -s ";
+	operation += std::to_string(width);
+	operation += "x";
+	operation += std::to_string(height);
+	operation += " -i ";
+	operation += (imagesFilePath + imageFormat);
+	operation += " -vcodec libx264 -crf 25  -pix_fmt yuv420p ";
+	operation += videoPath;
+	std::cout << operation << std::endl;
+	FILE* pipe;
+	pipe = _popen(operation.c_str(), "w");
+	_pclose(pipe);
 }
 void Application::InitApplication()
 {

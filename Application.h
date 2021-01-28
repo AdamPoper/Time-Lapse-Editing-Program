@@ -14,6 +14,8 @@ private:
 	void Run();
 	void setStaticExposureValue();
 	void setCalculatedExposureOffset();
+	void createTimeLapse();
+	
 private:
 	static const std::string s_imagePrefix;
 	std::string m_filePath;

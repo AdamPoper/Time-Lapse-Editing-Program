@@ -60,7 +60,6 @@ void Image::updateExposureMetaData(float exposureValue)
 	std::cout << "[ Edited Image # " << m_indexID << " Exposure: +" << exposureValue << " ]" << std::endl;
 	writeMetaData();
 }
-
 float Image::compareImages(const Image& img)
 {
 	float stopsDifference = 0.0f;
@@ -74,7 +73,6 @@ float Image::calculateISOExposure(float next_iso)
 {
 	return (std::log(next_iso / m_iso) / std::log(2));
 }
-
 float Image::calculateShutterSpeedExposure(float s_speed)
 {
 	return (std::log(s_speed / m_shutterSpeed) / std::log(2));
